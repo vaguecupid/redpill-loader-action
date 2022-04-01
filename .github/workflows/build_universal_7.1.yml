@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: redpill-${{github.event.inputs.dsmodel}}_7.1-loader
-          path: output/redpill-*.img
+          path: output/

@@ -43,7 +43,7 @@ esac
 
 
 # prepare build tools
-sudo apt-get update && sudo apt-get install --yes --no-install-recommends ca-certificates build-essential git libssl-dev curl cpio bspatch vim gettext bc bison flex dosfstools kmod jq
+sudo apt-get update && sudo apt-get install --yes --no-install-recommends ca-certificates build-essential git libssl-dev curl cpio bspatch vim gettext bc bison flex dosfstools kmod jq qemu-utils
 root=`pwd`
 os_version=$2
 pat_address="https://global.download.synology.com/download/DSM/release/7.1/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
@@ -112,4 +112,5 @@ cat ./config/${dsmodel}/${build_para}/config.json
 # ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
 sudo ./build-loader.sh ${dsmodel} '7.1.0-'${os_version}
 mv images/redpill-${dsmodel}*.img ${root}/output/
+sudo qemu-img convert -o vmdk ${root}/output/redpill-${dsmodel}*.img ${root}/output/redpill-${dsmodel}.vmdk
 cd ${root}
