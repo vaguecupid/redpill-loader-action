@@ -2,16 +2,14 @@
   "extra_cmdline": {
     "vid": "0x46f4",
     "pid": "0x0001",
-    "SasIdxMap": "0",
-    "SataPortMap": "48", 
-    "DiskIdxMap": "0004",
-    "sn": "1130LWN123456",
-    "mac1": "001132FA6CD3",
-    "mac2": "001132FA6CD4",    
-    "mac3": "001132FA6CD5", 
-    "mac4": "001132FA6CD6"
+    "SataPortMap": "58", 
+    "DiskIdxMap": "0A00",
+    "sn": "2150SQRRLEEBA",
+    "mac1": "00505631334B"
   },
   "synoinfo": {
+    "internalportcfg" : "0xffff",
+    "maxdisks" : "16",
     "supportsystemperature": "no",
     "supportsystempwarning": "no"
   },
