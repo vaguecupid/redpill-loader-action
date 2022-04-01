@@ -112,5 +112,5 @@ cat ./config/${dsmodel}/${build_para}/config.json
 # ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
 sudo ./build-loader.sh ${dsmodel} '7.1.0-'${os_version}
 mv images/redpill-${dsmodel}*.img ${root}/output/
-sudo qemu-img convert -o vmdk ${root}/output/redpill-${dsmodel}*.img ${root}/output/redpill-${dsmodel}.vmdk
+sudo qemu-img convert -O vmdk ${root}/output/redpill-${dsmodel}*.img ${root}/output/redpill-${dsmodel}.vmdk
 cd ${root}
