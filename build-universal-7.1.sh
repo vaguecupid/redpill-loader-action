@@ -103,7 +103,7 @@ sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_p
 cat ./config/${dsmodel}/${build_para}/config.json
 
 # 7.1.0 must add this ext
-./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-misc/rpext-index.json  
+./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-new/redpill-misc/rpext-index.json  
 # add optional ext
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json

@@ -2,8 +2,10 @@
   "extra_cmdline": {
     "vid": "0x46f4",
     "pid": "0x0001",
-    "sn": "17A0PDN123456",
-    "mac1": "001132123456"
+    "SataPortMap": "58", 
+    "DiskIdxMap": "0A00",
+    "sn": "2150SQRRLEEBA",
+    "mac1": "00505631334B"
   },
   "synoinfo": {
     "supportsystemperature": "no",
