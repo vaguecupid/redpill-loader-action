@@ -1,13 +1,11 @@
 {
   "extra_cmdline": {
-    "vid": "0x46f4",
-    "pid": "0x0001",
-    "sn": "20C0SQREEFBYK",
+    "vid": "0x13fe",
+    "pid": "0x3600",
+    "sn": "2150SBRHGEAZD",
     "mac1": "00505631334B"
   },
   "synoinfo": {
-    "internalportcfg" : "0xffff",
-    "maxdisks" : "16",
     "supportsystemperature": "no",
     "supportsystempwarning": "no"
   },
