@@ -1,0 +1,27 @@
+{
+  "mod_version": "v1",
+
+  "files": [
+    {
+      "name": "igb-4.4.180plus.tgz",
+      "url": "https://raw.githubusercontent.com/pocopico/rp-ext/master/igb/releases/igb-4.4.180plus.tgz",
+      "sha256": "48151ad04cfb243ada7d147542d5bbfcb4e7f2e456d5ba3562090c7189076ade",
+      "packed": true
+    },
+    {
+      "name": "check-igb.sh",
+      "url": "https://raw.githubusercontent.com/pocopico/rp-ext/master/igb/src/check-igb.sh",
+      "sha256": "6a20d999ff8adbe897cbd0f57bd8383b9025dc8526b5b19f53786eec54df7e74",
+      "packed": false
+    }
+  ],
+
+  "kmods": {
+    "igb.ko": ""
+  },
+
+    "scripts": {
+    "on_boot": "check-igb.sh"
+  }
+
+}
