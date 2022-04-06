@@ -1,7 +1,7 @@
 {
   "extra_cmdline": {
-    "vid": "0x090c",
-    "pid": "0x1000",
+    "vid": "0x13fe",
+    "pid": "0x3600",
     "SataPortMap": "4", 
     "sn": "1980PDN008423",
     "mac1": "6045CB64B84F",
