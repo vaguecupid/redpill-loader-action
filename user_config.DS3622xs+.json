@@ -6,8 +6,6 @@
     "mac1": "00505631334B"
   },
   "synoinfo": {
-    "internalportcfg" : "0xffff",
-    "maxdisks" : "16",
     "supportsystemperature": "no",
     "supportsystempwarning": "no"
   },
