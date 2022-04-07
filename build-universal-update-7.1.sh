@@ -96,15 +96,8 @@ cd synoesp
 
 curl --location  ${pat_address} --output ${os_version}.pat
 sudo chmod +x syno_extract_patch
-sudo chmod +x scemd
-sudo chmod +x syno_extract_system_patch
-if [ $minor -ne 0 ];
-then
-       mkdir output-pat
-       sudo LD_LIBRARY_PATH=. ./syno_extract_patch -vxf ${os_version}.pat -C output-pat
-else
-       sudo LD_LIBRARY_PATH=. ./syno_extract_system_patch ${os_version}.pat output-pat
-fi
+mkdir output-pat
+sudo LD_LIBRARY_PATH=. ./syno_extract_patch -vxf ${os_version}.pat -C output-pat
 
 cd output-pat && sudo tar -zcvf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
 read -a os_sha256 <<< $(sha256sum ${os_version}.pat)
