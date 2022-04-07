@@ -98,7 +98,7 @@ curl --location  ${pat_address} --output ${os_version}.pat
 mkdir output-pat
 sudo chmod +x syno_extract_patch
 if [ $minor -ne 0 ];
-then sudo LD_LIBRARY_PATH=. ./syno_extract_patch ${os_version}.pat -C output-pat
+then sudo LD_LIBRARY_PATH=. ./syno_extract_patch -vxf ${os_version}.pat -C output-pat
 else sudo LD_LIBRARY_PATH=. ./syno_extract_system_patch ${os_version}.pat output-pat
 fi
 
