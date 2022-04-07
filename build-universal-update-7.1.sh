@@ -87,7 +87,7 @@ make LINUX_SRC=../${arch}/usr/local/x86_64-pc-linux-gnu/x86_64-pc-linux-gnu/sys-
 read -a KVERS <<< "$(sudo modinfo --field=vermagic redpill.ko)" && cp -fv redpill.ko ../redpill-load/ext/rp-lkm/redpill-linux-v${KVERS[0]}.ko || exit 1
 cd ..
 
-# download old pat for syno_extract_system_patch # thanks for jumkey's idea.
+# download syno_extract_system_patch # thanks for jumkey's idea.
 mkdir synoesp
 curl --location https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/misc --output misc
 base64 -d misc > patutils.tar
@@ -95,11 +95,15 @@ tar -xvf patutils.tar -C synoesp
 cd synoesp
 
 curl --location  ${pat_address} --output ${os_version}.pat
-mkdir output-pat
 sudo chmod +x syno_extract_patch
+sudo chmod +x scemd
+sudo chmod +x syno_extract_system_patch
 if [ $minor -ne 0 ];
-then sudo LD_LIBRARY_PATH=. ./syno_extract_patch -vxf ${os_version}.pat -C output-pat
-else sudo LD_LIBRARY_PATH=. ./syno_extract_system_patch ${os_version}.pat output-pat
+then
+       mkdir output-pat
+       sudo LD_LIBRARY_PATH=. ./syno_extract_patch -vxf ${os_version}.pat -C output-pat
+else
+       sudo LD_LIBRARY_PATH=. ./syno_extract_system_patch ${os_version}.pat output-pat
 fi
 
 cd output-pat && sudo tar -zcvf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
