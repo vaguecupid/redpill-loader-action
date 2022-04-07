@@ -12,11 +12,11 @@ on:
         required: true
         default: '7.1.0'
       os_version:
-        description: 'Must build DSM7.1 and after DSM versions'
+        description: 'Input DSM Build Number'
         required: true
         default: '42661'
       minor:
-        description: 'Must select minor update (0 is no minor)'
+        description: 'Input Minor Revision (0 is no minor)'
         required: true
         default: '0'
 jobs:
@@ -36,5 +36,5 @@ jobs:
       - name: Archive loader image
         uses: actions/upload-artifact@v2
         with:
-          name: redpill-${{github.event.inputs.dsmodel}}_7.1-loader
+          name: redpill-${{github.event.inputs.dsmodel}}_${{github.event.inputs.major}}-loader
           path: output/
