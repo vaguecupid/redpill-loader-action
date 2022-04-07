@@ -1,0 +1,40 @@
+name: Build RedPill DSM loader (for 7.1 Critical Update pat)
+
+on: 
+  workflow_dispatch:
+    inputs:
+      dsmodel:
+        description: 'Input Full DSM model [DS3622xs+|RS4021xs+|DVA3221|DS918+|DS920+|DS3615xs]'
+        required: true
+        default: 'DS3622xs+'
+      os_version:
+        description: 'Must build DSM7.1 and after DSM versions'
+        required: true
+        default: '42218'
+      minor:
+        description: 'Must select minor update'
+        required: true
+        default: '3'
+#       pat-address:
+#         description: 'Pat file URL'
+#         required: true
+#         default: 'https://global.download.synology.com/download/DSM/criticalupdate/update_pack/42218-3/synology_broadwellnk_3622xs%2B.pat'
+jobs:
+  redpill:
+    runs-on: ubuntu-latest
+    name: Build RedPill lkm and load
+    steps:
+      - uses: actions/checkout@v2.1.0
+        name: checkout src
+        id: checkout
+        with:
+          submodules: 'true'
+      - name: Build dsm 7.1
+        id: build-dsm-71
+        run: |
+            bash build-universal-update-7.1.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.os_version}} ${{github.event.inputs.minor}}
+      - name: Archive loader image
+        uses: actions/upload-artifact@v2
+        with:
+          name: redpill-${{github.event.inputs.dsmodel}}_7.1-loader
+          path: output/
