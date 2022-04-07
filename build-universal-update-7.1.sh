@@ -109,7 +109,8 @@ if [ $minor -ne 0 ];
 then cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${osid}_${os_version}u${minor}.pat
 else cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${osid}_${os_version}.pat
 fi
-cd ../../../
+
+cd ../../
 
 
 # build redpill-load
