@@ -85,7 +85,7 @@ cd synoesp
 curl --location  ${pat_address} --output ${os_version}.pat
 mkdir output-pat
 sudo chmod +x syno_extract_patch
-sudo LD_LIBRARY_PATH=. ./syno_extract_patch ${os_version}.pat output-pat
+sudo LD_LIBRARY_PATH=. ./syno_extract_patch ${os_version}.pat -C output-pat
 
 cd output-pat && sudo tar -zcvf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
 read -a os_sha256 <<< $(sha256sum ${os_version}.pat)
@@ -106,7 +106,7 @@ cat ./config/${dsmodel}/${build_para}/config.json
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
 # DS920+ must add this ext
-if [ $dsmodel = "DS920+" ]
+if [ $dsmodel = "DS920+" ];
 then
        ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
 fi
