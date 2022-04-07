@@ -45,15 +45,27 @@ esac
 # prepare build tools
 sudo apt-get update && sudo apt-get install --yes --no-install-recommends ca-certificates build-essential git libssl-dev curl cpio bspatch vim gettext bc bison flex dosfstools kmod jq qemu-utils
 root=`pwd`
-os_version=$2
-minor=$3
-pat_address="https://global.download.synology.com/download/DSM/criticalupdate/update_pack/"${os_version}"-"${minor}"/synology_"${arch}"_"${dsmodel}".pat"
+major=$2
+os_version=$3
+minor=$4
+
+workpath=${arch}"-"${major}
+mkdir $workpath
+
+if [ $minor -ne 0 ];
+then
+       pat_address="https://global.download.synology.com/download/DSM/criticalupdate/update_pack/"${os_version}"-"${minor}"/synology_"${arch}"_"${dsmodel:2}".pat"
+       build_para=${major}"-"${os_version}"u"${minor}
+else
+       if [ ${major:(-1)} -eq 0 ];
+       then pat_address="https://global.download.synology.com/download/DSM/release/"${major:0:3}"/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
+       else pat_address="https://global.download.synology.com/download/DSM/release/"${major}"/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
+       fi
+       build_para=${major}"-"${os_version}
+fi
 echo ${pat_address}
 #https://global.download.synology.com/download/DSM/release/7.1/42621/DSM_DS3622xs%2B_42621.pat
 
-workpath=${arch}"-7.1.0"
-mkdir $workpath
-build_para="7.1.0-"${os_version}"u"${minor}
 mkdir output
 cd $workpath
 
@@ -85,12 +97,18 @@ cd synoesp
 curl --location  ${pat_address} --output ${os_version}.pat
 mkdir output-pat
 sudo chmod +x syno_extract_patch
-sudo LD_LIBRARY_PATH=. ./syno_extract_patch ${os_version}.pat -C output-pat
+if [ $minor -ne 0 ];
+then sudo LD_LIBRARY_PATH=. ./syno_extract_patch ${os_version}.pat -C output-pat
+else sudo LD_LIBRARY_PATH=. ./syno_extract_system_patch ${os_version}.pat output-pat
+fi
 
 cd output-pat && sudo tar -zcvf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
 read -a os_sha256 <<< $(sha256sum ${os_version}.pat)
 echo $os_sha256
-cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${osid}_${os_version}u${minor}.pat
+if [ $minor -ne 0 ];
+then cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${osid}_${os_version}u${minor}.pat
+else cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${osid}_${os_version}.pat
+fi
 cd ../../../
 
 
@@ -101,21 +119,25 @@ sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_p
 cat ./config/${dsmodel}/${build_para}/config.json
 
 # 7.1.0 must add this ext
-./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-new/redpill-misc/rpext-index.json  
+if [ ${os_version} -ge 42550 ];
+then ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-new/redpill-misc/rpext-index.json
+fi
 # add optional ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ];
-then
-       ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
+then ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
 fi
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/redpill-ext/master/acpid/rpext-index.json
 # ./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
 # ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
-sudo ./build-loader.sh ${dsmodel} '7.1.0-'${os_version}'u'${minor}
+if [ $minor -ne 0 ];
+then sudo ./build-loader.sh ${dsmodel} ${major}'-'${os_version}'u'${minor}
+else sudo ./build-loader.sh ${dsmodel} ${major}'-'${os_version}
+fi
 mv images/redpill-${dsmodel}*.img ${root}/output/
 sudo qemu-img convert -O vmdk ${root}/output/redpill-${dsmodel}*.img ${root}/output/redpill-${dsmodel}.vmdk
 cd ${root}
