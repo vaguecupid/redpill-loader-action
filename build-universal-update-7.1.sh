@@ -128,14 +128,15 @@ fi
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
 # DS920+ must add this ext
-if [ $dsmodel = "DS920+" ];
-then ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
+if [ $dsmodel = "DS920+" ]; then 
+  ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
+  ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-boot-wait/rpext-index.json
 fi
-#./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
+
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/redpill-ext/master/acpid/rpext-index.json
-# ./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
-# ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
+#./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
+
 if [ $minor -ne 0 ];
 then sudo ./build-loader.sh ${dsmodel} ${major}'-'${os_version}'u'${minor}
 else sudo ./build-loader.sh ${dsmodel} ${major}'-'${os_version}
