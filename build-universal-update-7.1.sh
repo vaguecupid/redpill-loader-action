@@ -157,5 +157,8 @@ then sudo ./build-loader.sh ${dsmodel} ${major}'-'${os_version}'u'${minor}
 else sudo ./build-loader.sh ${dsmodel} ${major}'-'${os_version}
 fi
 mv images/redpill-${dsmodel}*.img ${root}/output/
-sudo qemu-img convert -O vmdk ${root}/output/redpill-${dsmodel}*.img ${root}/output/redpill-${dsmodel}-${build_para}.vmdk
+if [ $worktarget = "VM" ]; then
+ sudo qemu-img convert -O vmdk ${root}/output/redpill-${dsmodel}*.img ${root}/output/redpill-${dsmodel}-${build_para}.vmdk
+ sudo rm ${root}/output/redpill-${dsmodel}*.img
+fi
 cd ${root}
