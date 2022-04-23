@@ -48,6 +48,7 @@ root=`pwd`
 major=$2
 os_version=$3
 minor=$4
+worktarget=$5
 
 workpath=${arch}"-"${major}
 mkdir $workpath
@@ -116,7 +117,11 @@ cd ../../
 
 # build redpill-load
 cd redpill-load
-cp -f ${root}/user_config.${dsmodel}.json ./user_config.json
+if [ $worktarget = "VM" ]; then
+ cp -f ${root}/user_config_vm.json ./user_config.json
+elif [ $worktarget = "real" ]; then
+ cp -f ${root}/user_config_real.json ./user_config.json
+fi
 sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
 cat ./config/${dsmodel}/${build_para}/config.json
 
@@ -130,6 +135,16 @@ fi
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
+  # copy dtb for target system
+  if [ $worktarget = "VM" ] && [ $minor -ne 0 ]; then
+   cp -f ${root}/model_ds920p_vm.dtb ./custom/extensions/redpill-dtb/ds920p_${os_version}u${minor}/model_ds920p.dtb
+  elif [ $worktarget = "VM" ] && [ $minor -eq 0 ]; then
+   cp -f ${root}/model_ds920p_vm.dtb ./custom/extensions/redpill-dtb/ds920p_${os_version}/model_ds920p.dtb
+  elif [ $worktarget = "real" ] && [ $minor -ne 0 ]; then
+   cp -f ${root}/model_ds920p_real.dtb ./custom/extensions/redpill-dtb/ds920p_${os_version}u${minor}/model_ds920p.dtb
+  elif [ $worktarget = "real" ] && [ $minor -eq 0 ]; then
+   cp -f ${root}/model_ds920p_real.dtb ./custom/extensions/redpill-dtb/ds920p_${os_version}/model_ds920p.dtb
+  fi
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-boot-wait/rpext-index.json
 fi
 

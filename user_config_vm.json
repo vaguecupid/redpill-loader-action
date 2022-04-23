@@ -1,0 +1,25 @@
+{
+  "extra_cmdline": {
+    "pid": "0x3600",
+    "vid": "0x13fe",
+    "sn": "2030SBRE4H98W",
+    "mac1": "00505631334B",
+    "SataPortMap": "58",
+    "DiskIdxMap": "0A00"
+  },
+  "synoinfo": {
+
+          "internalportcfg" : "0xffff",
+          "maxdisks" : "16",
+	      "support_bde_internal_10g" : "no",
+	      "support_disk_compatibility" : "no",
+          "support_memory_compatibility" : "no"
+
+
+},
+  "ramdisk_copy": {
+
+    
+}
+
+}

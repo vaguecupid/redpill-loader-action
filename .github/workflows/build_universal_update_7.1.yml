@@ -19,6 +19,10 @@ on:
         description: 'Input Minor Revision (0 is no minor)'
         required: true
         default: '0'
+      system:
+        description: 'Input VM or real'
+        required: true
+        default: 'VM'
 jobs:
   redpill:
     runs-on: ubuntu-latest
@@ -32,7 +36,7 @@ jobs:
       - name: Build dsm 7.1
         id: build-dsm-71
         run: |
-            bash build-universal-update-7.1.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.major}} ${{github.event.inputs.os_version}} ${{github.event.inputs.minor}}
+            bash build-universal-update-7.1.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.major}} ${{github.event.inputs.os_version}} ${{github.event.inputs.minor}} ${{github.event.inputs.system}}
       - name: Archive loader image
         uses: actions/upload-artifact@v2
         with:

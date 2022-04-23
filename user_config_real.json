@@ -1,0 +1,28 @@
+{
+  "extra_cmdline": {
+    "pid": "0x3600",
+    "vid": "0x13fe",
+    "sn": "2150SBRE10BDY",
+    "mac1": "6045CB64B84F",
+    "mac2": "001B21B6AF08",
+    "mac3": "001B21B6AF09",
+    "netif_num": "3",
+    "SataPortMap": "4",
+    "DiskIdxMap": "00"
+  },
+  "synoinfo": {
+
+          "internalportcfg" : "0xffff",
+          "maxdisks" : "16",
+	      "support_bde_internal_10g" : "no",
+	      "support_disk_compatibility" : "no",
+          "support_memory_compatibility" : "no"
+
+
+},
+  "ramdisk_copy": {
+
+    
+}
+
+}
