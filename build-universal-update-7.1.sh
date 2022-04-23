@@ -98,6 +98,7 @@ done
 if [ -f redpill.ko ] && [ -n $(strings redpill.ko | grep $synomodel) ]; then
        REDPILL_MOD_NAME="redpill-linux-v$(modinfo redpill.ko | grep vermagic | awk '{print $2}').ko"
        mv ${root}/${workpath}/redpill.ko ${root}/${workpath}/redpill-load/ext/rp-lkm/${REDPILL_MOD_NAME}
+       echo "Successful use static redpill"
     else
        echo "Module does not contain platorm information for ${synomodel}"
 fi
@@ -163,13 +164,15 @@ fi
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
   echo "Update Platform exts NO.1"
-  ./ext-manager.sh _update_platform_exts ${synomodel} jumkey.dtb
+  ./ext-manager.sh _update_platform_exts ${synomodel}
   # copy dtb for target system
   echo "Copy dtb for target"
   if [ $worktarget = "VM" ]; then
-   cp -f ${root}/model_ds920p_vm.dtb ./custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
+   sudo cp -f ${root}/model_ds920p_vm.dtb ./custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
+   echo "dtb copy success!"
   elif [ $worktarget = "real" ]; then
-   cp -f ${root}/model_ds920p_real.dtb ./custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
+   sudo cp -f ${root}/model_ds920p_real.dtb ./custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
+   echo "dtb copy success!"
   fi
 fi
 
