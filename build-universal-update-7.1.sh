@@ -121,7 +121,7 @@ fi
 mkdir synoesp
 curl --location https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/misc --output misc
 base64 -d misc > patutils.tar
-tar -xvf patutils.tar -C synoesp 
+tar -xf patutils.tar -C synoesp 
 cd synoesp
 
 curl --location  ${pat_address} --output ${os_version}.pat
@@ -129,11 +129,11 @@ sudo chmod 777 syno_extract_system
 sudo chmod 777 syno_extract_patch
 mkdir output-pat
 if [ $minor -ne 0 ];
-then sudo LD_LIBRARY_PATH=. ./syno_extract_patch -vxf ${os_version}.pat -C output-pat
-else sudo LD_LIBRARY_PATH=. ./syno_extract_system -vxf ${os_version}.pat -C output-pat
+then sudo LD_LIBRARY_PATH=. ./syno_extract_patch -xf ${os_version}.pat -C output-pat
+else sudo LD_LIBRARY_PATH=. ./syno_extract_system -xf ${os_version}.pat -C output-pat
 fi
 
-cd output-pat && sudo tar -zcvf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
+cd output-pat && sudo tar -zcf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
 read -a os_sha256 <<< $(sha256sum ${os_version}.pat)
 echo $os_sha256
 cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${synomodel}.pat
@@ -162,8 +162,10 @@ fi
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
+  echo "Update Platform exts NO.1"
   ./ext-manager.sh _update_platform_exts ${synomodel} jumkey.dtb
   # copy dtb for target system
+  echo "Copy dtb for target"
   if [ $worktarget = "VM" ]; then
    cp -f ${root}/model_ds920p_vm.dtb ./custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
   elif [ $worktarget = "real" ]; then
