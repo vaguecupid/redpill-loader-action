@@ -168,10 +168,10 @@ if [ $dsmodel = "DS920+" ]; then
   # copy dtb for target system
   echo "Copy dtb for target"
   if [ $worktarget = "VM" ]; then
-   sudo cp -f ${root}/model_ds920p_vm.dtb ./custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
+   sudo cp -f ${root}/model_ds920p_vm.dtb ${root}/${workpath}/redpill-load/custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
   elif [ $worktarget = "real" ]; then
-   sudo cp -f ${root}/model_ds920p_real.dtb ./custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
+   sudo cp -f ${root}/model_ds920p_real.dtb ${root}/${workpath}/redpill-load/custom/extensions/redpill-dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
   fi
 fi
