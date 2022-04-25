@@ -144,10 +144,14 @@ cd ../../
 
 # build redpill-load
 cd redpill-load
-if [ $worktarget = "VM" ]; then
+if [ $worktarget = "VM" ] && [ $dsmodel != "DS3622xs+" ]; then
  cp -f ${root}/user_config_vm.json ./user_config.json
-elif [ $worktarget = "real" ]; then
+elif [ $worktarget = "real" ] && [ $dsmodel != "DS3622xs+" ]; then
  cp -f ${root}/user_config_real.json ./user_config.json
+elif [ $worktarget = "VM" ] && [ $dsmodel = "DS3622xs+" ]; then
+ cp -f ${root}/user_config_3622vm.json ./user_config.json
+elif [ $worktarget = "real" ] && [ $dsmodel = "DS3622xs+" ]; then
+ cp -f ${root}/user_config_3622real.json ./user_config.json
 fi
 sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
 cat ./config/${dsmodel}/${build_para}/config.json
@@ -158,7 +162,9 @@ then ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loa
 fi
 # add optional ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
-./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
+if [ $worktarget = "real" ]; then
+ ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
+fi
 ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
