@@ -60,15 +60,15 @@ then
        build_para=${major}"-"${os_version}"u"${minor}
        synomodel=${osid}"_"${os_version}"u"${minor}
 else
-       if [ ${major:(-1)} -eq 0 ];
-       then pat_address="https://global.download.synology.com/download/DSM/release/"${major:0:3}"/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
-       else pat_address="https://global.download.synology.com/download/DSM/release/"${major}"/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
+       if [ $major -eq "7.1.0" ]; then
+        pat_address="https://global.download.synology.com/download/DSM/release/7.1/42661-1/DSM_"${dsmodel}"_"${os_version}".pat"
+       else
+        pat_address="https://global.download.synology.com/download/DSM/release/"${major}"/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
        fi
        build_para=${major}"-"${os_version}
        synomodel=${osid}"_"${os_version}
 fi
 echo ${pat_address}
-#https://global.download.synology.com/download/DSM/release/7.1/42621/DSM_DS3622xs%2B_42621.pat
 
 mkdir output
 cd $workpath
