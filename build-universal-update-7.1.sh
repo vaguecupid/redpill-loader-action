@@ -60,7 +60,7 @@ then
        build_para=${major}"-"${os_version}"u"${minor}
        synomodel=${osid}"_"${os_version}"u"${minor}
 else
-       if [ $major -eq "7.1.0" ]; then
+       if [ $major = "7.1.0" ]; then
         pat_address="https://global.download.synology.com/download/DSM/release/7.1/42661-1/DSM_"${dsmodel}"_"${os_version}".pat"
        else
         pat_address="https://global.download.synology.com/download/DSM/release/"${major}"/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
