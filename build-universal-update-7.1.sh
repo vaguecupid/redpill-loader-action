@@ -169,17 +169,21 @@ fi
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
-  echo "Update Platform exts NO.1"
-  ./ext-manager.sh _update_platform_exts ${synomodel}
+  echo "First Build for download some exts"
+  sudo ./build-loader.sh ${dsmodel} ${build_para}
   # copy dtb for target system
-  echo "Copy dtb for target"
+  echo "making dts to dtb"
   if [ $worktarget = "VM" ]; then
-   sudo cp -f ${root}/model_ds920p_vm.dtb ${root}/${workpath}/redpill-load/custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
+   dtc -I dts -O dtb ${root}/output_vm.dts > model_ds920p_vm.dtb
+   sudo cp -f model_ds920p_vm.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
   elif [ $worktarget = "real" ]; then
-   sudo cp -f ${root}/model_ds920p_real.dtb ${root}/${workpath}/redpill-load/custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
+   dtc -I dts -O dtb ${root}/output_real.dts > model_ds920p_real.dtb
+   sudo cp -f model_ds920p_real.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
   fi
+  sudo rm images/*
+  echo "Second Build for apply dtb"
 fi
 
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
