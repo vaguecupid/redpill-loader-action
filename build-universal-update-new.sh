@@ -169,7 +169,7 @@ fi
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
   echo "First Build for download some exts"
-  sudo ./build-loader.sh ${dsmodel} ${build_para}
+  sudo BRP_JUN_MOD=1 BRP_DEBUG=1 BRP_USER_CFG=user_config.json ./build-loader.sh ${dsmodel} ${build_para}
   # copy dtb for target system
   echo "making dts to dtb"
   if [ $worktarget = "VM" ]; then
@@ -189,7 +189,7 @@ fi
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/redpill-ext/master/acpid/rpext-index.json
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
 
-sudo ./build-loader.sh ${dsmodel} ${build_para}
+sudo BRP_JUN_MOD=1 BRP_DEBUG=1 BRP_USER_CFG=user_config.json ./build-loader.sh ${dsmodel} ${build_para}
 
 mv images/redpill-${dsmodel}*.img ${root}/output/
 if [ $worktarget = "VM" ]; then
