@@ -1,0 +1,32 @@
+name: Build RedPill DSM loader (new method)
+
+on: 
+  workflow_dispatch:
+    inputs:
+      dsmodel:
+        description: 'Input Full DSM model [DS3622xs+|RS4021xs+|DVA3221|DS918+|DS920+|DS3615xs]'
+        required: true
+        default: 'DS3622xs+'
+      system:
+        description: 'Input VM or real'
+        required: true
+        default: 'VM'
+jobs:
+  redpill:
+    runs-on: ubuntu-latest
+    name: Build RedPill lkm and load
+    steps:
+      - uses: actions/checkout@v2.1.0
+        name: checkout src
+        id: checkout
+        with:
+          submodules: 'true'
+      - name: Build dsm
+        id: build-dsm
+        run: |
+            bash build-universal-update-new.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.system}}
+      - name: Archive loader image
+        uses: actions/upload-artifact@v2
+        with:
+          name: redpill-${{github.event.inputs.dsmodel}}_${{github.event.inputs.major}}-loader
+          path: output/
