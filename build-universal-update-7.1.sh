@@ -171,16 +171,21 @@ if [ $dsmodel = "DS920+" ]; then
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
   echo "First Build for download some exts"
   sudo ./build-loader.sh ${dsmodel} ${build_para}
+  sha256sum ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
   # copy dtb for target system
   echo "making dts to dtb"
   if [ $worktarget = "VM" ]; then
-   dtc -I dts -O dtb ${root}/output_vm.dts > model_ds920p_vm.dtb
+   dtc -p -I dts -O dtb ${root}/output_vm.dts > model_ds920p_vm.dtb
+   sha256sum model_ds920p_vm.dtb
    sudo cp -f model_ds920p_vm.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
+   sha256sum ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
   elif [ $worktarget = "real" ]; then
-   dtc -I dts -O dtb ${root}/output_real.dts > model_ds920p_real.dtb
+   dtc -p -I dts -O dtb ${root}/output_real.dts > model_ds920p_real.dtb
+   sha256sum model_ds920p_real.dtb
    sudo cp -f model_ds920p_real.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
+   sha256sum ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
   fi
   sudo rm images/*
   echo "Second Build for apply dtb"
@@ -191,6 +196,9 @@ fi
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
 
 sudo ./build-loader.sh ${dsmodel} ${build_para}
+if [ $dsmodel = "DS920+" ]; then 
+ sha256sum ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
+fi
 
 mv images/redpill-${dsmodel}*.img ${root}/output/
 if [ $worktarget = "VM" ]; then
