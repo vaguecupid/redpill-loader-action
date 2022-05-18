@@ -164,6 +164,8 @@ fi
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
 if [ $worktarget = "real" ]; then
  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
+else
+ ./ext-manager.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/mptspi/rpext-index.json
 fi
 ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
