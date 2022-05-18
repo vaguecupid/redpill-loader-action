@@ -153,8 +153,8 @@ elif [ $worktarget = "VM" ] && [ $dsmodel = "DS3622xs+" ]; then
 elif [ $worktarget = "real" ] && [ $dsmodel = "DS3622xs+" ]; then
  cp -f ${root}/user_config_3622real.json ./user_config.json
 fi
-# sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
-# cat ./config/${dsmodel}/${build_para}/config.json
+sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
+cat ./config/${dsmodel}/${build_para}/config.json
 
 # 7.1.0 must add this ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-new/redpill-misc/rpext-index.json
