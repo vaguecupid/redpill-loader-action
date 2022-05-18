@@ -45,8 +45,8 @@ esac
 # prepare build tools
 sudo apt-get update && sudo apt-get install --yes --no-install-recommends ca-certificates build-essential git libssl-dev curl cpio bspatch vim gettext bc bison flex dosfstools kmod jq qemu-utils device-tree-compiler
 root=`pwd`
-major=7.0.1 # 7.1.0
-os_version=42218 # 42661
+major=7.1.0 # 7.1.0
+os_version=42661 # 42661
 minor=0 # Update x
 worktarget=$2 # vm or real
 redpillext="https://github.com/pocopico/rp-ext/raw/main/redpill/rpext-index.json"
@@ -76,7 +76,7 @@ cd $workpath
 
 # download redpill
 git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
-git clone -b develop --depth=1 https://github.com/ek2rlstk/redpill-load.git
+git clone -b develop-new --depth=1 https://github.com/ek2rlstk/redpill-load.git
 
 # download static redpill-lkm and use it
 extension=$(curl -s --location "$redpillext")
@@ -119,27 +119,27 @@ if [ ! -f ${root}/${workpath}/redpill-load/ext/rp-lkm/${REDPILL_MOD_NAME} ]; the
 fi
 
 # download syno_extract_system_patch # thanks for jumkey's idea.
-# mkdir synoesp
-# curl --location https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/misc --output misc
-# base64 -d misc > patutils.tar
-# tar -xf patutils.tar -C synoesp 
-# cd synoesp
+mkdir synoesp
+curl --location https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/misc --output misc
+base64 -d misc > patutils.tar
+tar -xf patutils.tar -C synoesp 
+cd synoesp
 
-# curl --location  ${pat_address} --output ${os_version}.pat
-# sudo chmod 777 syno_extract_system
-# sudo chmod 777 syno_extract_patch
-# mkdir output-pat
-# if [ $minor -ne 0 ];
-# then sudo LD_LIBRARY_PATH=. ./syno_extract_patch -xf ${os_version}.pat -C output-pat
-# else sudo LD_LIBRARY_PATH=. ./syno_extract_system -xf ${os_version}.pat -C output-pat
-# fi
+curl --location  ${pat_address} --output ${os_version}.pat
+sudo chmod 777 syno_extract_system
+sudo chmod 777 syno_extract_patch
+mkdir output-pat
+if [ $minor -ne 0 ];
+then sudo LD_LIBRARY_PATH=. ./syno_extract_patch -xf ${os_version}.pat -C output-pat
+else sudo LD_LIBRARY_PATH=. ./syno_extract_system -xf ${os_version}.pat -C output-pat
+fi
 
-# cd output-pat && sudo tar -zcf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
-# read -a os_sha256 <<< $(sha256sum ${os_version}.pat)
-# echo $os_sha256
-# cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${synomodel}.pat
+cd output-pat && sudo tar -zcf ${os_version}.pat * && sudo chmod 777 ${os_version}.pat
+read -a os_sha256 <<< $(sha256sum ${os_version}.pat)
+echo $os_sha256
+cp ${os_version}.pat ${root}/${workpath}/redpill-load/cache/${synomodel}.pat
 
-# cd ../../
+cd ../../
 
 
 # build redpill-load
