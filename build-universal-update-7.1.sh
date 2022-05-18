@@ -175,7 +175,7 @@ if [ $dsmodel = "DS920+" ]; then
   # copy dtb for target system
   echo "making dts to dtb"
   if [ $worktarget = "VM" ]; then
-   dtc -p -I dts -O dtb ${root}/output_vm.dts > model_ds920p_vm.dtb
+   dtc -q -I dts -O dtb ${root}/output_vm.dts > model_ds920p_vm.dtb
    sha256sum model_ds920p_vm.dtb
    sudo cp -f model_ds920p_vm.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
