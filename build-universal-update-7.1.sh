@@ -181,7 +181,7 @@ if [ $dsmodel = "DS920+" ]; then
    echo "dtb copy success!"
    sha256sum ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
   elif [ $worktarget = "real" ]; then
-   dtc -p -I dts -O dtb ${root}/output_real.dts > model_ds920p_real.dtb
+   dtc -q -I dts -O dtb ${root}/output_real.dts > model_ds920p_real.dtb
    sha256sum model_ds920p_real.dtb
    sudo cp -f model_ds920p_real.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
    echo "dtb copy success!"
