@@ -76,7 +76,7 @@ cd $workpath
 
 # download redpill
 git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
-git clone -b develop-new --depth=1 https://github.com/ek2rlstk/redpill-load.git
+git clone -b develop-jun --depth=1 https://github.com/ek2rlstk/redpill-load.git
 
 # download static redpill-lkm and use it
 extension=$(curl -s --location "$redpillext")
@@ -157,32 +157,19 @@ sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_p
 cat ./config/${dsmodel}/${build_para}/config.json
 
 # 7.1.0 must add this ext
-./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-new/redpill-misc/rpext-index.json
+./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-jun/redpill-misc/rpext-index.json
 
 # add optional ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
 if [ $worktarget = "real" ]; then
  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
+else
+ ./ext-manager.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/mptspi/rpext-index.json
 fi
-./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-boot-wait/rpext-index.json
+./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-jun/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
-  ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-new/redpill-dtb/rpext-index.json
-  echo "First Build for download some exts"
-  sudo BRP_JUN_MOD=1 BRP_DEBUG=1 BRP_USER_CFG=user_config.json ./build-loader.sh ${dsmodel} ${build_para}
-  # copy dtb for target system
-  echo "making dts to dtb"
-  if [ $worktarget = "VM" ]; then
-   dtc -I dts -O dtb ${root}/output_vm.dts > model_ds920p_vm.dtb
-   sudo cp -f model_ds920p_vm.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
-   echo "dtb copy success!"
-  elif [ $worktarget = "real" ]; then
-   dtc -I dts -O dtb ${root}/output_real.dts > model_ds920p_real.dtb
-   sudo cp -f model_ds920p_real.dtb ./custom/extensions/jumkey.dtb/${synomodel}/model_ds920p.dtb
-   echo "dtb copy success!"
-  fi
-  sudo rm images/*
-  echo "Second Build for apply dtb"
+  ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-jun/redpill-dtb/rpext-index.json
 fi
 
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json

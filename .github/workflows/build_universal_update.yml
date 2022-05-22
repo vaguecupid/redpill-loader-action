@@ -36,7 +36,7 @@ jobs:
       - name: Build dsm 7.1
         id: build-dsm-71
         run: |
-            bash build-universal-update-7.1.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.major}} ${{github.event.inputs.os_version}} ${{github.event.inputs.minor}} ${{github.event.inputs.system}}
+            bash build-universal-update.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.major}} ${{github.event.inputs.os_version}} ${{github.event.inputs.minor}} ${{github.event.inputs.system}}
       - name: Archive loader image
         uses: actions/upload-artifact@v2
         with:

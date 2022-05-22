@@ -1,4 +1,4 @@
-name: Build RedPill DSM loader (new method)
+name: Build RedPill DSM loader (Jun method)
 
 on: 
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
       - name: Build dsm
         id: build-dsm
         run: |
-            bash build-universal-update-new.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.system}}
+            bash build-universal-update-jun.sh ${{github.event.inputs.dsmodel}} ${{github.event.inputs.system}}
       - name: Archive loader image
         uses: actions/upload-artifact@v2
         with:
