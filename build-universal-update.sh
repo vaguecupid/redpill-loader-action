@@ -144,15 +144,20 @@ cd ../../
 
 # build redpill-load
 cd redpill-load
-if [ $worktarget = "VM" ] && [ $dsmodel != "DS3622xs+" ]; then
- cp -f ${root}/user_config_vm.json ./user_config.json
-elif [ $worktarget = "real" ] && [ $dsmodel != "DS3622xs+" ]; then
- cp -f ${root}/user_config_real.json ./user_config.json
+if [ $worktarget = "VM" ] && [ $dsmodel = "DS918+" ]; then
+ cp -f ${root}/user_config_vm_918.json ./user_config.json
+elif [ $worktarget = "VM" ] && [ $dsmodel = "DS920+" ]; then
+ cp -f ${root}/user_config_vm_920.json ./user_config.json
 elif [ $worktarget = "VM" ] && [ $dsmodel = "DS3622xs+" ]; then
- cp -f ${root}/user_config_3622vm.json ./user_config.json
+ cp -f ${root}/user_config_vm_3622.json ./user_config.json
+elif [ $worktarget = "real" ] && [ $dsmodel = "DS918+" ]; then
+ cp -f ${root}/user_config_real_918.json ./user_config.json
+elif [ $worktarget = "real" ] && [ $dsmodel = "DS920+" ]; then
+ cp -f ${root}/user_config_real_920.json ./user_config.json
 elif [ $worktarget = "real" ] && [ $dsmodel = "DS3622xs+" ]; then
- cp -f ${root}/user_config_3622real.json ./user_config.json
+ cp -f ${root}/user_config_real_3622.json ./user_config.json
 fi
+
 sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
 cat ./config/${dsmodel}/${build_para}/config.json
 
