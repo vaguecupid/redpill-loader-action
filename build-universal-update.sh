@@ -76,7 +76,7 @@ cd $workpath
 
 # download redpill
 git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
-git clone -b develop-old --depth=1 https://github.com/ek2rlstk/redpill-load.git
+git clone -b develop --depth=1 https://github.com/pocopico/redpill-load.git
 
 # download static redpill-lkm and use it
 extension=$(curl -s --location "$redpillext")
@@ -175,7 +175,7 @@ fi
 # ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
-  ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-dtb/rpext-index.json
+  ./ext-manager.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-dtb/rpext-index.json
 fi
 
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
