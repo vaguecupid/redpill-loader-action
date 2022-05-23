@@ -76,7 +76,7 @@ cd $workpath
 
 # download redpill
 git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
-git clone -b develop --depth=1 https://github.com/pocopico/redpill-load.git
+git clone -b develop-old --depth=1 https://github.com/ek2rlstk/redpill-load.git
 
 # download static redpill-lkm and use it
 extension=$(curl -s --location "$redpillext")
