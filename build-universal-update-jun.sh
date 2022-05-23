@@ -162,7 +162,7 @@ sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_p
 cat ./config/${dsmodel}/${build_para}/config.json
 
 # 7.1.0 must add this ext
-./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-jun/redpill-misc/rpext-index.json
+./ext-manager.sh add https://github.com/pocopico/redpill-load/raw/develop/redpill-misc/rpext-index.json
 
 # add optional ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
@@ -171,7 +171,7 @@ if [ $worktarget = "real" ]; then
 else
  ./ext-manager.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/mptspi/rpext-index.json
 fi
-./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-jun/redpill-boot-wait/rpext-index.json
+# ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-jun/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-jun/redpill-dtb/rpext-index.json

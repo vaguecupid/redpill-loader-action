@@ -163,7 +163,7 @@ cat ./config/${dsmodel}/${build_para}/config.json
 
 # 7.1.0 must add this ext
 if [ ${os_version} -ge 42550 ];
-then ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-load/develop-old/redpill-misc/rpext-index.json
+then ./ext-manager.sh add https://github.com/pocopico/redpill-load/raw/develop/redpill-misc/rpext-index.json
 fi
 # add optional ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
@@ -172,7 +172,7 @@ if [ $worktarget = "real" ]; then
 else
  ./ext-manager.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/mptspi/rpext-index.json
 fi
-./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-boot-wait/rpext-index.json
+# ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-dtb/rpext-index.json
