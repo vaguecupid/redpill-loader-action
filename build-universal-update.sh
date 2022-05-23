@@ -166,9 +166,9 @@ if [ ${os_version} -ge 42550 ];
 then ./ext-manager.sh add https://github.com/pocopico/redpill-load/raw/develop/redpill-misc/rpext-index.json
 fi
 # add optional ext
-./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/e1000e/rpext-index.json
+./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rp-ext/master/e1000e/rpext-index.json
 if [ $worktarget = "real" ]; then
- ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/redpill-loader-action/master/driver/igb/rpext-index.json
+ ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rp-ext/master/igb/rpext-index.json
 else
  ./ext-manager.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/mptspi/rpext-index.json
 fi
