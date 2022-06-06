@@ -29,10 +29,10 @@ esac
 sudo apt-get update && sudo apt-get install --yes --no-install-recommends ca-certificates build-essential git libssl-dev curl cpio bspatch vim gettext bc bison flex dosfstools kmod jq qemu-utils device-tree-compiler
 root=`pwd`
 dsmos=($(echo $2 | tr "-" "\n"))
-major=$dsmos[0] # 7.1.0
-os_version=$dsmos[1] # 42661
+major=${dsmos[0]} # 7.1.0
+os_version=${dsmos[1]} # 42661
 if [ ${#dsmos[@]} -eq 3 ]; then
-    minor=$dsmos[2] # Update x
+    minor=${dsmos[2]} # Update x
 else
     minor=0
 fi
