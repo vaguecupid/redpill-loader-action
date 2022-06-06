@@ -168,8 +168,8 @@ fi
 # ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
-  ./ext-manager.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-runtime-qjs/rpext-index.json
-  ./ext-manager.sh add https://github.com/jumkey/redpill-load/blob/develop/redpill-qjs-dtb/rpext-index.json
+  ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-runtime-qjs/rpext-index.json
+  ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-qjs-dtb/rpext-index.json
 fi
 
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
