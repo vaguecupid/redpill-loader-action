@@ -9,25 +9,10 @@ case $1 in
         osid="ds3622xsp"
         echo "arch is Broadwellnk"
         ;;
- RS4021xs+)
-        arch="broadwellnk"
-        osid="ds4021xsp"
-        echo "arch is Broadwellnk"
-        ;;
- DVA3221)
-        arch="denverton"
-        osid="dva3221"
-        echo "arch is Denverton"
-        ;;
  DS918+)
         arch="apollolake"
         osid="ds918p"
         echo "arch is Apollolake"
-        ;;
-  DS3615xs)
-        arch="bromolow"
-        osid="ds3615xs"
-        echo "arch is Bromolow"
         ;;
  DS920+)
         arch="geminilake"
@@ -35,20 +20,24 @@ case $1 in
         echo "arch is Geminilake"
         ;;
  *)
-        echo "Usage: $dsmodel [DS3622xs+|RS4021xs+|DVA3221|DS918+|DS920+|DS3615xs]"
+        echo "Usage: $dsmodel [DS3622xs+|DS918+|DS920+]"
         exit 1
         ;;
 esac
 
-
-
-# prepare build tools
+# prepare build tools & variables
 sudo apt-get update && sudo apt-get install --yes --no-install-recommends ca-certificates build-essential git libssl-dev curl cpio bspatch vim gettext bc bison flex dosfstools kmod jq qemu-utils device-tree-compiler
 root=`pwd`
-major=$2 # 7.1.0
-os_version=$3 # 42661
-minor=$4 # Update x
-worktarget=$5 # vm or real
+dsmos=($(echo $2 | tr "-" "\n"))
+major=$dsmos[0] # 7.1.0
+os_version=$dsmos[1] # 42661
+if [ ${#dsmos[@]} -eq 3 ]; then
+    minor=$dsmos[2] # Update x
+else
+    minor=0
+fi
+
+worktarget=$3 # vm or real
 redpillext="https://github.com/pocopico/rp-ext/raw/main/redpill/rpext-index.json"
 
 workpath=${arch}"-"${major}
@@ -76,7 +65,11 @@ cd $workpath
 
 # download redpill
 git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
-git clone -b develop-old --depth=1 https://github.com/ek2rlstk/redpill-load.git
+if [ $4 = "yes" ]; then
+ git clone -b develop-jun --depth=1 https://github.com/ek2rlstk/redpill-load.git
+else
+ git clone -b develop-old --depth=1 https://github.com/ek2rlstk/redpill-load.git
+fi
 
 # download static redpill-lkm and use it
 extension=$(curl -s --location "$redpillext")
@@ -175,14 +168,19 @@ fi
 # ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-boot-wait/rpext-index.json
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
-  ./ext-manager.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-dtb/rpext-index.json
+  ./ext-manager.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-runtime-qjs/rpext-index.json
+  ./ext-manager.sh add https://github.com/jumkey/redpill-load/blob/develop/redpill-qjs-dtb/rpext-index.json
 fi
 
 #./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/redpill-ext/master/acpid/rpext-index.json
 #./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
 
-sudo ./build-loader.sh ${dsmodel} ${build_para}
+if [ $4 = "yes" ]; then
+ sudo BRP_JUN_MOD=1 BRP_DEBUG=1 BRP_USER_CFG=user_config.json ./build-loader.sh ${dsmodel} ${build_para}
+else
+ sudo ./build-loader.sh ${dsmodel} ${build_para}
+fi
 
 mv images/redpill-${dsmodel}*.img ${root}/output/
 if [ $worktarget = "VM" ]; then
