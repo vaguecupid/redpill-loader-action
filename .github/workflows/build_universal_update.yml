@@ -16,7 +16,7 @@ on:
         required: true
         default: 'VM'
       junmod:
-        description: 'Use Jun's method?'
+        description: 'Use Jun method?'
         required: true
         default: 'yes'
 jobs:
