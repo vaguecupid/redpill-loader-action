@@ -138,7 +138,7 @@ cd ../../
 
 # build redpill-load
 cd redpill-load
-cp -f ${root}/user_config_${worktarget}_${dsmodel}.json ./user_config.json
+cp -f ${root}/userconfig/user_config_${worktarget}_${dsmodel}.json ./user_config.json
 
 sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
 cat ./config/${dsmodel}/${build_para}/config.json
