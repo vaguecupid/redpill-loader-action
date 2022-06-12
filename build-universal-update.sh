@@ -63,8 +63,7 @@ mkdir output
 cd $workpath
 
 
-# download redpill
-git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
+# download redpill-load
 if [ $4 = "yes" ]; then
  git clone -b develop-jun --depth=1 https://github.com/ek2rlstk/redpill-load.git
 else
@@ -97,6 +96,8 @@ if [ -f redpill.ko ] && [ -n $(strings redpill.ko | grep $synomodel) ]; then
 fi
 
 if [ ! -f ${root}/${workpath}/redpill-load/ext/rp-lkm/${REDPILL_MOD_NAME} ]; then
+# download redpill-lkm
+ git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
 # download syno toolkit
  curl --location "https://global.download.synology.com/download/ToolChain/toolkit/7.0/"${arch}"/ds."${arch}"-7.0.dev.txz" --output ds.${arch}-7.0.dev.txz
 
@@ -139,20 +140,6 @@ cd ../../
 cd redpill-load
 cp -f ${root}/user_config_${worktarget}_${dsmodel}.json ./user_config.json
 
-#if [ $worktarget = "VM" ] && [ $dsmodel = "DS918+" ]; then
-# cp -f ${root}/user_config_vm_918.json ./user_config.json
-#elif [ $worktarget = "VM" ] && [ $dsmodel = "DS920+" ]; then
-# cp -f ${root}/user_config_vm_920.json ./user_config.json
-#elif [ $worktarget = "VM" ] && [ $dsmodel = "DS3622xs+" ]; then
-# cp -f ${root}/user_config_vm_3622.json ./user_config.json
-#elif [ $worktarget = "real" ] && [ $dsmodel = "DS918+" ]; then
-# cp -f ${root}/user_config_real_918.json ./user_config.json
-#elif [ $worktarget = "real" ] && [ $dsmodel = "DS920+" ]; then
-# cp -f ${root}/user_config_real_920.json ./user_config.json
-#elif [ $worktarget = "real" ] && [ $dsmodel = "DS3622xs+" ]; then
-# cp -f ${root}/user_config_real_3622.json ./user_config.json
-#fi
-
 sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
 cat ./config/${dsmodel}/${build_para}/config.json
 
@@ -162,21 +149,19 @@ then ./ext-manager.sh add https://github.com/pocopico/redpill-load/raw/develop/r
 fi
 # add optional ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rp-ext/master/e1000e/rpext-index.json
+./ext-manager.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-acpid/rpext-index.json
 if [ $worktarget = "real" ]; then
  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rp-ext/master/igb/rpext-index.json
 else
+# ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
  ./ext-manager.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/mptspi/rpext-index.json
 fi
-# ./ext-manager.sh add https://github.com/ek2rlstk/redpill-load/raw/develop-old/redpill-boot-wait/rpext-index.json
+
 # DS920+ must add this ext
 if [ $dsmodel = "DS920+" ]; then 
   ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-runtime-qjs/rpext-index.json
   ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-qjs-dtb/rpext-index.json
 fi
-
-#./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
-#./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/redpill-ext/master/acpid/rpext-index.json
-#./ext-manager.sh add https://raw.githubusercontent.com/dogodefi/mpt3sas/offical/rpext-index.json
 
 if [ $4 = "yes" ]; then
  sudo BRP_JUN_MOD=1 BRP_DEBUG=1 BRP_USER_CFG=user_config.json ./build-loader.sh ${dsmodel} ${build_para}

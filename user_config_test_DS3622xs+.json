@@ -1,0 +1,16 @@
+{
+  "extra_cmdline": {
+    "pid": "0x3600",
+    "vid": "0x13fe",
+    "sn": "2040SQRDP41KV",
+    "mac1": "244BFE8DDDE9"
+  },
+  "synoinfo": {
+
+},
+  "ramdisk_copy": {
+
+    
+}
+
+}
