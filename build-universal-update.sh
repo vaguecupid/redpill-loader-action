@@ -37,7 +37,7 @@ else
     minor=0
 fi
 
-worktarget=$3 # vm or real
+worktarget=$3 # real / test / vm
 redpillext="https://github.com/pocopico/rp-ext/raw/main/redpill/rpext-index.json"
 
 workpath=${arch}"-"${major}
@@ -137,19 +137,21 @@ cd ../../
 
 # build redpill-load
 cd redpill-load
-if [ $worktarget = "VM" ] && [ $dsmodel = "DS918+" ]; then
- cp -f ${root}/user_config_vm_918.json ./user_config.json
-elif [ $worktarget = "VM" ] && [ $dsmodel = "DS920+" ]; then
- cp -f ${root}/user_config_vm_920.json ./user_config.json
-elif [ $worktarget = "VM" ] && [ $dsmodel = "DS3622xs+" ]; then
- cp -f ${root}/user_config_vm_3622.json ./user_config.json
-elif [ $worktarget = "real" ] && [ $dsmodel = "DS918+" ]; then
- cp -f ${root}/user_config_real_918.json ./user_config.json
-elif [ $worktarget = "real" ] && [ $dsmodel = "DS920+" ]; then
- cp -f ${root}/user_config_real_920.json ./user_config.json
-elif [ $worktarget = "real" ] && [ $dsmodel = "DS3622xs+" ]; then
- cp -f ${root}/user_config_real_3622.json ./user_config.json
-fi
+cp -f ${root}/user_config_${worktarget}_${dsmodel}.json ./user_config.json
+
+#if [ $worktarget = "VM" ] && [ $dsmodel = "DS918+" ]; then
+# cp -f ${root}/user_config_vm_918.json ./user_config.json
+#elif [ $worktarget = "VM" ] && [ $dsmodel = "DS920+" ]; then
+# cp -f ${root}/user_config_vm_920.json ./user_config.json
+#elif [ $worktarget = "VM" ] && [ $dsmodel = "DS3622xs+" ]; then
+# cp -f ${root}/user_config_vm_3622.json ./user_config.json
+#elif [ $worktarget = "real" ] && [ $dsmodel = "DS918+" ]; then
+# cp -f ${root}/user_config_real_918.json ./user_config.json
+#elif [ $worktarget = "real" ] && [ $dsmodel = "DS920+" ]; then
+# cp -f ${root}/user_config_real_920.json ./user_config.json
+#elif [ $worktarget = "real" ] && [ $dsmodel = "DS3622xs+" ]; then
+# cp -f ${root}/user_config_real_3622.json ./user_config.json
+#fi
 
 sed -i '0,/"sha256.*/s//"sha256": "'$os_sha256'"/' ./config/${dsmodel}/${build_para}/config.json
 cat ./config/${dsmodel}/${build_para}/config.json
@@ -183,7 +185,7 @@ else
 fi
 
 mv images/redpill-${dsmodel}*.img ${root}/output/
-if [ $worktarget = "VM" ]; then
+if [ $worktarget = "vm" ]; then
  sudo qemu-img convert -O vmdk ${root}/output/redpill-${dsmodel}*.img ${root}/output/redpill-${dsmodel}-${build_para}.vmdk
  sudo rm ${root}/output/redpill-${dsmodel}*.img
 fi

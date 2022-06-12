@@ -12,9 +12,9 @@ on:
         required: true
         default: '7.1.0-42661'
       system:
-        description: 'Input VM or real'
+        description: 'Input vm or real or test'
         required: true
-        default: 'VM'
+        default: 'vm'
       junmod:
         description: 'Use Jun method?'
         required: true
