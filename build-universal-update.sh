@@ -46,8 +46,8 @@ mkdir $workpath
 if [ $minor -ne 0 ];
 then
        pat_address="https://global.download.synology.com/download/DSM/criticalupdate/update_pack/"${os_version}"-"${minor}"/synology_"${arch}"_"${dsmodel:2}".pat"
-       build_para=${major}"-"${os_version}"u"${minor}
-       synomodel=${osid}"_"${os_version}"u"${minor}
+       build_para=${major}"-"${os_version}"u"
+       synomodel=${osid}"_"${os_version}"u"
 else
        if [ $major = "7.1.0" ]; then
         pat_address="https://global.download.synology.com/download/DSM/release/7.1/42661-1/DSM_"${dsmodel}"_"${os_version}".pat"
