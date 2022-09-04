@@ -19,8 +19,13 @@ case $1 in
         osid="ds920p"
         echo "arch is Geminilake"
         ;;
+ DS1621+)
+        arch="v1000"
+        osid="ds1621p"
+        echo "arch is v1000"
+       ;;
  *)
-        echo "Usage: $dsmodel [DS3622xs+|DS918+|DS920+]"
+        echo "Usage: $dsmodel [DS3622xs+|DS918+|DS920+|DS1621+]"
         exit 1
         ;;
 esac
@@ -158,7 +163,7 @@ else
 fi
 
 # DS920+ must add this ext
-if [ $dsmodel = "DS920+" ]; then 
+if [ $dsmodel = "DS920+" ] || [ $dsmodel = "DS1621+" ]; then 
   ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-runtime-qjs/rpext-index.json
   ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-qjs-dtb/rpext-index.json
 fi

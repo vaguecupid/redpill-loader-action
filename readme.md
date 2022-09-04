@@ -1,6 +1,6 @@
 # Building RedPill loader with Github action
 
-Supported Model: DS918+, DS920+, DS3622xs+
+Supported Model: DS918+, DS920+, DS3622xs+, DS1621+
 
 Supported Build: DSM 7.1+
 

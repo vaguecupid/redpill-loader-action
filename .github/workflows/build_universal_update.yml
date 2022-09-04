@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       dsmodel:
-        description: 'Input Full DSM model [DS3622xs+|DS918+|DS920+]'
+        description: 'Input Full DSM model [DS3622xs+|DS918+|DS920+|DS1621+]'
         required: true
         default: 'DS920+'
       major:
