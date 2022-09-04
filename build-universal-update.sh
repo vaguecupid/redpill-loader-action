@@ -43,7 +43,7 @@ else
 fi
 
 worktarget=$3 # real / test / vm
-redpillext="https://github.com/pocopico/rp-ext/raw/main/redpill/rpext-index.json"
+redpillext="https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill/rpext-index.json"
 
 workpath=${arch}"-"${major}
 mkdir $workpath
@@ -150,22 +150,22 @@ cat ./config/${dsmodel}/${build_para}/config.json
 
 # 7.1.0 must add this ext
 if [ ${os_version} -ge 42550 ];
-then ./ext-manager.sh add https://github.com/pocopico/redpill-load/raw/develop/redpill-misc/rpext-index.json
+then ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-misc/rpext-index.json
 fi
 # add optional ext
-./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rp-ext/master/e1000e/rpext-index.json
-./ext-manager.sh add https://github.com/jumkey/redpill-load/raw/develop/redpill-acpid/rpext-index.json
-if [ $worktarget = "real" ]; then
- ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rp-ext/master/igb/rpext-index.json
+./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/e1000e/rpext-index.json
+./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-acpid/rpext-index.json
+if [ $worktarget = "real" ] || [ $worktarget = "test" ]; then
+ ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/igb/rpext-index.json
 else
-# ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-virtio/rpext-index.json
- ./ext-manager.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/mptspi/rpext-index.json
+# ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-virtio/rpext-index.json
+ ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/mptspi/rpext-index.json
 fi
 
-# DS920+ must add this ext
+# DS920+ and DS1621+ must add this ext
 if [ $dsmodel = "DS920+" ] || [ $dsmodel = "DS1621+" ]; then 
-  ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-runtime-qjs/rpext-index.json
-  ./ext-manager.sh add https://raw.githubusercontent.com/jumkey/redpill-load/develop/redpill-qjs-dtb/rpext-index.json
+  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-runtime-qjs/rpext-index.json
+  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-qjs-dtb/rpext-index.json
 fi
 
 if [ $4 = "yes" ]; then
