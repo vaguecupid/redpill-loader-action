@@ -1,18 +1,17 @@
 {
   "extra_cmdline": {
-    "pid": "0x3600",
-    "vid": "0x13fe",
-    "sn": "1980PDN019946",
-    "mac1": "6045CB64B84F",
-    "mac2": "001B21B6AF08",
-    "mac3": "001B21B6AF09",
-    "netif_num": "3"
+    "pid": "0x0001",
+    "vid": "0x46f4",
+    "sn": "17A0PDN123456",
+    "mac1": "001132123456",
+    "mac2": "001132123457",
+    "netif_num": "2",
+    "sata_uid": "1",
+    "sata_pcislot": "5",
+    "DiskIdxMap": "1400",
+    "SataPortMap": "14",
+    "SasIdxMap": "0"
   },
-  "synoinfo": {
-},
-  "ramdisk_copy": {
-
-    
-}
-
+  "synoinfo": {},
+  "ramdisk_copy": {}
 }
