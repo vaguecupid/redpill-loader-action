@@ -159,6 +159,7 @@ fi
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-acpid/rpext-index.json
 if [ $worktarget = "real" ] || [ $worktarget = "test" ]; then
  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/igb/rpext-index.json
+ ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/igc/rpext-index.json
 else
 # ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-virtio/rpext-index.json
  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/mptspi/rpext-index.json
