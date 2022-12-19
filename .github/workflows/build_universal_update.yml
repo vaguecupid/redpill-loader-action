@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       dsmodel:
-        description: 'Input Full DSM model [DS3622xs+|DS918+|DS920+|DS1621+]'
+        description: 'Input Full DSM model [DS3622xs+|DS918+|DS920+|DS923+|DS1621+]'
         required: true
         default: 'DS920+'
       major:
         description: 'Input DSM Version (ex: 7.1.0-42661-1)'
         required: true
-        default: '7.1.0-42661'
+        default: '7.1.1-42962'
       system:
         description: 'Input vm or real or test'
         required: true

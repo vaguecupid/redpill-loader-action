@@ -19,13 +19,18 @@ case $1 in
         osid="ds920p"
         echo "arch is Geminilake"
         ;;
+ DS923+)
+        arch="r1000"
+        osid="ds923p"
+        echo "arch is r1000"
+        ;;
  DS1621+)
         arch="v1000"
         osid="ds1621p"
         echo "arch is v1000"
        ;;
  *)
-        echo "Usage: $dsmodel [DS3622xs+|DS918+|DS920+|DS1621+]"
+        echo "Usage: $dsmodel [DS3622xs+|DS918+|DS920+|DS923+|DS1621+]"
         exit 1
         ;;
 esac
@@ -54,9 +59,11 @@ then
        build_para=${major}"-"${os_version}"u"
        synomodel=${osid}"_"${os_version}"u"
 else
-       if [ $major = "7.1.0" ]; then
+       if [ $major == "7.1.0" ]; then
         pat_address="https://global.download.synology.com/download/DSM/release/7.1/42661-1/DSM_"${dsmodel}"_"${os_version}".pat"
-       elif [ $major = "7.1.1" ]; then
+       elif [ $major == "7.1.1" ] && [ $arch == "r1000" ]; then
+        pat_address="https://global.download.synology.com/download/DSM/release/7.1.1/42962/DSM_"${dsmodel}"_"${os_version}".pat" 
+       elif [ $major == "7.1.1" ] && [ $arch != "r1000" ]; then
         pat_address="https://global.download.synology.com/download/DSM/release/7.1.1/42962-1/DSM_"${dsmodel}"_"${os_version}".pat"
        else
         pat_address="https://global.download.synology.com/download/DSM/release/"${major}"/"${os_version}"/DSM_"${dsmodel}"_"${os_version}".pat"
@@ -106,15 +113,15 @@ if [ ! -f ${root}/${workpath}/redpill-load/ext/rp-lkm/${REDPILL_MOD_NAME} ]; the
 # download redpill-lkm
  git clone -b develop --depth=1 https://github.com/dogodefi/redpill-lkm.git
 # download syno toolkit
- curl --location "https://global.download.synology.com/download/ToolChain/toolkit/7.0/"${arch}"/ds."${arch}"-7.0.dev.txz" --output ds.${arch}-7.0.dev.txz
+ curl --location "https://global.download.synology.com/download/ToolChain/toolkit/7.1/"${arch}"/ds."${arch}"-7.1.dev.txz" --output ds.${arch}-7.1.dev.txz
 
  mkdir ${arch}
- tar -C./${arch}/ -xf ds.${arch}-7.0.dev.txz usr/local/x86_64-pc-linux-gnu/x86_64-pc-linux-gnu/sys-root/usr/lib/modules/DSM-7.0/build
+ tar -C./${arch}/ -xf ds.${arch}-7.1.dev.txz usr/local/x86_64-pc-linux-gnu/x86_64-pc-linux-gnu/sys-root/usr/lib/modules/DSM-7.1/build
 
  # build redpill-lkm (if static is not working)
  cd redpill-lkm
- sed -i 's/   -std=gnu89/   -std=gnu89 -fno-pie/' ../${arch}/usr/local/x86_64-pc-linux-gnu/x86_64-pc-linux-gnu/sys-root/usr/lib/modules/DSM-7.0/build/Makefile
- make LINUX_SRC=../${arch}/usr/local/x86_64-pc-linux-gnu/x86_64-pc-linux-gnu/sys-root/usr/lib/modules/DSM-7.0/build dev-v7
+ sed -i 's/   -std=gnu89/   -std=gnu89 -fno-pie/' ../${arch}/usr/local/x86_64-pc-linux-gnu/x86_64-pc-linux-gnu/sys-root/usr/lib/modules/DSM-7.1/build/Makefile
+ make LINUX_SRC=../${arch}/usr/local/x86_64-pc-linux-gnu/x86_64-pc-linux-gnu/sys-root/usr/lib/modules/DSM-7.1/build dev-v7
  read -a KVERS <<< "$(sudo modinfo --field=vermagic redpill.ko)" && cp -fv redpill.ko ../redpill-load/ext/rp-lkm/redpill-linux-v${KVERS[0]}.ko || exit 1
  cd ..
 fi
