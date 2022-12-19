@@ -164,6 +164,7 @@ fi
 # add optional ext
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/e1000e/rpext-index.json
 ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/redpill-acpid/rpext-index.json
+./ext-manager.sh add https://raw.githubusercontent.com/vaguecupid/rp-ext/master/vmxnet3/rpext-index.json
 if [ $worktarget = "real" ] || [ $worktarget = "test" ]; then
  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/igb/rpext-index.json
  ./ext-manager.sh add https://raw.githubusercontent.com/ek2rlstk/rpexte/master/igc/rpext-index.json
