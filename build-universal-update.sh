@@ -79,8 +79,7 @@ cd $workpath
 
 # download redpill-load
 if [ $4 = "yes" ]; then
-# git clone -b develop-jun --depth=1 https://github.com/ek2rlstk/redpill-load.git
- git clone -b develop-jun --depth=1 https://github.com/jumkey/redpill-load.git
+ git clone -b develop-jun --depth=1 https://github.com/ek2rlstk/redpill-load.git
 else
  git clone -b develop-old --depth=1 https://github.com/ek2rlstk/redpill-load.git
 fi
