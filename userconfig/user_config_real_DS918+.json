@@ -2,9 +2,9 @@
   "extra_cmdline": {
     "pid": "0x0001",
     "vid": "0x46f4",
-    "sn": "17A0PDN123456",
-    "mac1": "001132123456",
-    "mac2": "001132123457",
+    "sn": "1910PDN917407",
+    "mac1": "001132A6A725",
+    "mac2": "001132A6A726",
     "netif_num": "2",
     "sata_uid": "1",
     "sata_pcislot": "5",
